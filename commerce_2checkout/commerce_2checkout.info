@@ -1,0 +1,13 @@
+name = Commerce 2CheckOut
+description = Payment using 2checkout
+package = Commerce (contrib)
+dependencies[] = commerce_payment
+dependencies[] = rules
+core = 7.x
+
+; Information added by drupal.org packaging script on 2012-03-03
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "commerce_2checkout"
+datestamp = "1330776422"
+
