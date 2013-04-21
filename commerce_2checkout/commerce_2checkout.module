@@ -42,8 +42,9 @@ function commerce_2checkout_settings_form($settings = NULL) {
     'language' => 'en',
     'pay_method' => 'CC',
     'skip_landing' => true,
-    'one_page_checkout' => true,
+    'direct_checkout' => true,
     'third_party_cart' => true,
+    'tangible' => true,
     'logging' => '',
     'coupon' => '',
   );
@@ -82,11 +83,11 @@ function commerce_2checkout_settings_form($settings = NULL) {
     '#description' => t('Enable demo mode.'),
     '#default_value' => $settings['demo'],
   );
-  $form['one_page_checkout'] = array(
+  $form['direct_checkout'] = array(
     '#type' => 'checkbox',
-    '#title' => t('One page checkout.'),
-    '#description' => t('If disabled, customer will go through multiple pages.'),
-    '#default_value' => $settings['one_page_checkout'],
+    '#title' => t('Direct Checkout.'),
+    '#description' => t('If disabled, customer will go to standard Dynamic Checkout.'),
+    '#default_value' => $settings['direct_checkout'],
   );
   $form['third_party_cart'] = array(
     '#type' => 'checkbox',
@@ -303,8 +304,10 @@ function commerce_2checkout_purchase_parameters ($order, $settings) {
     }
   }
 
+  $data['currency_code'] = $currency_code;
+
   // Y to enable demo mode. Do not pass this in for live sales.
-  if (isset ($settings['demo']))
+  if ($settings['demo'] == 1)
     $data['demo'] = 'Y';
 
   return $data;
@@ -340,6 +343,10 @@ function commerce_2checkout_order_form($form, &$form_state, $order, $settings) {
     '#type' => 'submit',
     '#value' => t('Proceed to 2checkout'),
   );
+
+  if ($settings['direct_checkout'] == 1) {
+      echo '<script src="https://www.2checkout.com/static/checkout/javascript/direct.min.js"></script>';
+  }
 
   return $form;
 }
@@ -416,7 +423,7 @@ function commerce_2checkout_icons() {
  *   The URL to use to submit requests to 2checkout.
  */
 function commerce_2checkout_server_url ($settings) {
-  return $settings['one_page_checkout'] ? 'https://www.2checkout.com/checkout/spurchase' : 'https://www.2checkout.com/checkout/purchase';
+  return 'https://www.2checkout.com/checkout/purchase';
 }
 
 
