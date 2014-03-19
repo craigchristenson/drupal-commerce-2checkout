@@ -85,8 +85,8 @@ function commerce_2checkout_settings_form($settings = NULL) {
   );
   $form['direct_checkout'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Direct Checkout.'),
-    '#description' => t('If disabled, customer will go to standard Dynamic Checkout.'),
+    '#title' => t('Inline Checkout.'),
+    '#description' => t('If disabled, customer will go to standard checkout.'),
     '#default_value' => $settings['direct_checkout'],
   );
   $form['third_party_cart'] = array(
