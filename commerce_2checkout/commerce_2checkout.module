@@ -188,8 +188,13 @@ function commerce_2checkout_redirect_form_validate($order, $payment_method) {
  * be loaded and enabled.
  */
 function commerce_2checkout_guess_country_code () {
-  $country_code = isset ($_REQUEST['country_code']) ? $_REQUEST['country_code'] : apache_note('GEOIP_COUNTRY_CODE');
-  return $country_code;
+  if (isset($_REQUEST['country_code'])) {
+    return $_REQUEST['country_code'];
+  } else if (function_exists('apache_note')) {
+    return apache_note('GEOIP_COUNTRY_CODE');
+  } else {
+    return false;
+  }
 }
 
 
