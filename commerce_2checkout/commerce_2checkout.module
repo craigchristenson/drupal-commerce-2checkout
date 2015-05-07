@@ -38,6 +38,7 @@ function commerce_2checkout_settings_form($settings = NULL) {
     'business' => '',
     'secret_word' => '',
     'demo' => false,
+    'sandbox' => false,
     'fixed' => true,
     'language' => 'en',
     'pay_method' => 'CC',
@@ -82,6 +83,12 @@ function commerce_2checkout_settings_form($settings = NULL) {
     '#title' => t('Demo mode.'),
     '#description' => t('Enable demo mode.'),
     '#default_value' => $settings['demo'],
+  );
+  $form['sandbox'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Sandbox.'),
+    '#description' => t('Use sandbox site (https://sandbox.2checkout.com/).'),
+    '#default_value' => $settings['sandbox'],
   );
   $form['direct_checkout'] = array(
     '#type' => 'checkbox',
@@ -423,7 +430,7 @@ function commerce_2checkout_icons() {
  *   The URL to use to submit requests to 2checkout.
  */
 function commerce_2checkout_server_url ($settings) {
-  return 'https://www.2checkout.com/checkout/purchase';
+  return $settings['sandbox'] ? 'https://sandbox.2checkout.com/checkout/purchase' : 'https://www.2checkout.com/checkout/purchase';
 }
 
 
