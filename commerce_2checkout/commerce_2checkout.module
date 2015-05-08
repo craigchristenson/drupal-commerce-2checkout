@@ -246,20 +246,22 @@ function commerce_2checkout_purchase_parameters ($order, $settings) {
     'street_address2' => isset ($billing_address) ? $billing_address['premise']: '',
     'email' => $order->mail,
 
-    //Populate the shipping address
-    'ship_name' => isset ($shipping_address) ? $shipping_address['name_line']: '',
-    'ship_city' => isset ($shipping_address) ? $shipping_address['locality']: '',
-    'ship_country' => isset ($shipping_address) ? $shipping_address['country'] : commerce_2checkout_guess_country_code(),
-    'ship_state' => (isset ($shipping_address) && ($shipping_address['country'] == 'US' || $shipping_address['country'] == 'CA')) ? $shipping_address['administrative_area'] : 'XX',
-    'ship_zip' => isset ($shipping_address) ? $shipping_address['postal_code']: '',
-    'ship_street_address' => isset ($shipping_address) ? $shipping_address['thoroughfare']: '',
-    'ship_street_address2' => isset ($shipping_address) ? $shipping_address['premise']: '',
-
     // Commerce has no phone field, so just try something. It's required for
     // 2checkout, so try to pass something in is better than having the user
     // fill in more details on another form.
     'phone' => isset ($profile->field_phone[LANGUAGE_NONE][0]['value']) ? $profile->field_phone[LANGUAGE_NONE][0]['value'] : '',
   );
+
+  //Populate the shipping address
+  if (isset($shipping_address)) {
+    $data['ship_name'] = isset ($shipping_address) ? $shipping_address['name_line']: '';
+    $data['ship_city'] = isset ($shipping_address) ? $shipping_address['locality']: '';
+    $data['ship_country'] = isset ($shipping_address) ? $shipping_address['country'] : commerce_2checkout_guess_country_code();
+    $data['ship_state'] = (isset ($shipping_address) && ($shipping_address['country'] == 'US' || $shipping_address['country'] == 'CA')) ? $shipping_address['administrative_area'] : 'XX';
+    $data['ship_zip'] = isset ($shipping_address) ? $shipping_address['postal_code']: '';
+    $data['ship_street_address'] = isset ($shipping_address) ? $shipping_address['thoroughfare']: '';
+    $data['ship_street_address2'] = isset ($shipping_address) ? $shipping_address['premise']: '';
+  }
 
   if ($settings['third_party_cart']) {
     $data['cart_order_id'] = $order->order_id;
