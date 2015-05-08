@@ -315,6 +315,9 @@ function commerce_2checkout_purchase_parameters ($order, $settings) {
   if ($settings['demo'] == 1)
     $data['demo'] = 'Y';
 
+  // Allow modules to alter parameters of the API request.
+  drupal_alter('commerce_2checkout_order_form_data', $data, $order);
+
   return $data;
 }
 
