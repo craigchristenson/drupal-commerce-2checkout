@@ -26,3 +26,12 @@ function hook_commerce_2checkout_order_form_data_alter(&$data, $order) {
     $i++;
   }
 }
+
+/**
+ * Implements hook_commerce_2checkout_validate_form_data_alter().
+ */
+function hook_commerce_2checkout_validate_form_data_alter(&$data, $order) {
+  $USD_BOB = (float) variable_get('currency_usd_2_bob', 6.97);
+
+  $data['total'] = number_format((float) $data['total'] * $USD_BOB, 2, '.', '');
+}
