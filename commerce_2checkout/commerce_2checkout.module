@@ -172,6 +172,10 @@ function commerce_2checkout_redirect_form_validate($order, $payment_method) {
     commerce_order_status_update($order, 'completed');
     commerce_order_save ($order);
     // Save the transaction information.
+
+    // Allow modules to alter parameters of the API response.
+    drupal_alter('commerce_2checkout_validate_form_data', $_REQUEST, $order);
+
     $transaction = commerce_payment_transaction_new('2checkout', $_REQUEST['merchant_order_id']);
     $transaction->instance_id = $payment_method['instance_id'];
     $transaction->amount = commerce_currency_decimal_to_amount($_REQUEST['total'], commerce_default_currency());
