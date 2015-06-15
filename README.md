@@ -28,6 +28,12 @@ How to integrate Drupal Commerce with 2Checkout
 4. Under **Secret Word** enter your Secret Word (Must be the same value entered in your Drupal Commerce admin.)
 5. Click **Save Changes**.
 
+NOTE: If you use the sandbox mode, take into account that you won't be
+redirected back to your site because the `x_receipt_link_url` parameter
+only works on live accounts:
+
+- http://help.2checkout.com/articles/FAQ/Can-I-specify-the-return-URL-on-the-fly/
+
 **Please contact 2Checkout directly with any integration questions.**
 
 _Fork of original project at http://drupal.org/project/commerce_2checkout_
