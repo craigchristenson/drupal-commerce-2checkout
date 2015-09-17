@@ -63,7 +63,7 @@ function commerce_2checkout_settings_form($settings = NULL) {
     '#title' => t('Secret Word'),
     '#description' => t('2Checkout Secret Word<br/>Must be the same value you have entered in your 2Checkout Site Management Page.'),
     '#default_value' => $settings['secret_word'],
-    '#maxlength' => 16,
+    '#maxlength' => 64,
     '#required' => TRUE,
   );
   $form['skip_landing'] = array(
